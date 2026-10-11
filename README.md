@@ -26,18 +26,18 @@ Paste any web page URL → the backend scrapes the page's main text → a **free
 
 ```
 ai-web-scraper/
-├── client/            # React frontend (Vite)
+├── client/            # React frontend sources (Vite root)
 │   ├── index.html
-│   ├── vite.config.js # dev proxy: /api → http://localhost:3001
 │   └── src/           # App.jsx, main.jsx, styles.css
 ├── server/            # Express backend (local development)
 │   └── index.js
 ├── api/               # Vercel serverless function (production)
 │   └── summarize.js
 ├── lib/               # Shared core logic (scraper, Groq client, request handler)
-├── vercel.json        # Vercel build config (builds client/, serves api/ functions)
+├── vite.config.js     # Vite config (root: client/, dev proxy → :3001)
+├── vercel.json        # Vercel build config (builds client, serves api/ functions)
 ├── .env.example       # Template for your .env file
-└── package.json
+└── package.json       # Single package.json for frontend + backend
 ```
 
 ## 🚀 Getting Started (Local Development)
@@ -70,10 +70,10 @@ GROQ_API_KEY=gsk_your_real_key_here
 ### 3. Install dependencies
 
 ```bash
-npm run install-all
+npm install
 ```
 
-(installs the root/server packages **and** the client packages)
+(one install for everything — frontend and backend share a single `package.json`)
 
 ### 4. Run both frontend and backend
 
@@ -140,15 +140,18 @@ curl -X POST http://localhost:3001/api/summarize \
 
 ## ▲ Deployment (Vercel)
 
-The repo deploys to Vercel as a **single project** — `vercel.json` builds the React client into static files and exposes `api/summarize.js` as a serverless function at `/api/summarize`, so no CORS is needed in production.
+The repo deploys to Vercel as a **single project** — `vercel.json` builds the React client into static files (`dist/`) and exposes `api/summarize.js` as a serverless function at `/api/summarize`, so no CORS is needed in production.
 
 1. Push the repo to GitHub (or fork it).
 2. Go to **https://vercel.com/new** and **Import** the repository.
-3. Under **Environment Variables**, add:
+3. **Root Directory**: leave it as `./` (the project root). Vercel sometimes auto-detects `client/` as the root in monorepos — if you see that, set it back to `./`.
+4. Under **Environment Variables**, add:
    - Name: `GROQ_API_KEY`
    - Value: your Groq key (`gsk_...`)
-4. Click **Deploy** — no other settings need changing.
-5. Your live URL (e.g. `https://ai-web-scraper-<your-name>.vercel.app`) appears when the build finishes. Add it to the *Live demo* line at the top of this README.
+5. Click **Deploy** — no other settings need changing.
+6. Your live URL (e.g. `https://ai-web-scraper-<your-name>.vercel.app`) appears when the build finishes. Add it to the *Live demo* line at the top of this README.
+
+Already imported the project? Check **Settings → General → Root Directory** is `./`, then hit **Redeploy** on the latest deployment.
 
 ## ⚠️ Notes & Limitations
 
