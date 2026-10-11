@@ -1,0 +1,27 @@
+{
+  "name": "ai-web-scraper",
+  "version": "1.0.0",
+  "description": "Scrape any webpage and get an AI-generated summary via Groq",
+  "type": "module",
+  "main": "server/index.js",
+  "scripts": {
+    "install-all": "npm install && npm --prefix client install",
+    "dev": "concurrently -n server,client -c blue,magenta \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "node --watch server/index.js",
+    "dev:client": "npm --prefix client run dev",
+    "start": "node server/index.js",
+    "build": "npm --prefix client run build"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

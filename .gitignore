@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+client/node_modules/
+
+# Build output
+client/dist/
+
+# Environment variables — never commit real API keys
+.env
+.env.local
+.env.*.local
+
+# Misc
+.DS_Store
+*.log
+.vercel
