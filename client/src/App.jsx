@@ -116,7 +116,7 @@ export default function App() {
           </div>
           <div className="summary-block">
             <div className="summary-label">
-              AI Summary <span className="groq-chip">Groq · Llama 3.3</span>
+              AI Summary <span className="groq-chip">Groq · {result.model}</span>
             </div>
             <p className="summary-text">{result.summary}</p>
           </div>

@@ -8,7 +8,7 @@ Paste any web page URL → the backend scrapes the page's main text → a **free
 
 - 🔗 Paste a URL and click **Summarize**
 - 🕷 Backend fetches the page and extracts readable text (title, meta description, main content) with Cheerio
-- 🤖 Sends the text to Groq's free API (`llama-3.3-70b-versatile`) for a 3–5 sentence summary
+- 🤖 Sends the text to Groq's free API (`openai/gpt-oss-120b`) for a 3–5 sentence summary
 - ⏳ Animated loading state (spinner + skeleton) while the backend works
 - 🚨 Friendly error banners for invalid URLs, unreachable sites, and missing API keys
 - 🧩 One shared request handler used by both the local Express server and the Vercel serverless function
@@ -116,6 +116,7 @@ npm run dev:client
   "title": "Web scraping - Wikipedia",
   "description": "Web scraping is the practice of...",
   "wordCount": 8423,
+  "model": "openai/gpt-oss-120b",
   "summary": "Web scraping is the practice of programmatically extracting data from websites..."
 }
 ```
